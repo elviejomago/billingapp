@@ -1,0 +1,55 @@
+<div>
+  <h1>Registrar Factura</h1>
+</div>
+
+<div class="mt-3">
+  <form [formGroup]="billingForm" (ngSubmit)="registerBilling()">
+    <div class="row mt-3">
+      <div class="col-6">
+        <select style="width: 80% !important" formControlName="customer">
+          <option value="null" disabled selected>Seleccionar Cliente</option>
+          <option *ngFor="let customer of customerArray" [ngValue]="customer">{{ customer.name }}-{{ customer.ident }}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <select style="width: 80% !important" formControlName="supplier">
+          <option value="null" disabled selected>Selecionar Proveedor</option>
+          <option *ngFor="let supplier of supplierArray" [ngValue]="supplier">{{ supplier.name }}-{{ supplier.ident }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button type="button" id="addProduct" (click)="addProduct()">Agregar Producto</button>
+      <div class="row mt-3" *ngFor="let invoiceProduct of invoiceProductArray">
+        <div class="col-2">
+          <input type="number" id="amount" (change)="changeAmount($event, invoiceProduct)" />
+        </div>
+        <div class="col-6">
+          <select (change)="changeProduct($event, invoiceProduct)">
+            <option value="" disabled selected>Selecionar Producto</option>
+            <option *ngFor="let product of productArray" value="{{ product.id }}">{{ product.name }}</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <input type="number" id="unit_price" value="{{ invoiceProduct.unitPrice }}" disabled />
+        </div>
+        <div class="col-2">
+          <input type="number" id="total_price" value="{{ invoiceProduct.totalPrice }}" disabled />
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3" style="float: right">
+      <div class="row" style="width: 50% !important">
+        Subtotal: <input type="number" id="subtotal" value="{{ invoice.subtotal }}" disabled />
+      </div>
+      <div class="row" style="width: 50% !important">Iva: <input type="number" id="iva" value="{{ invoice.iva }}" disabled /></div>
+      <div class="row" style="width: 50% !important">Total: <input type="number" id="total" value="{{ invoice.total }}" disabled /></div>
+    </div>
+
+    <div class="mt-3">
+      <button type="submit">Facturar</button>
+    </div>
+  </form>
+</div>

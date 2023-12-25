@@ -8,6 +8,11 @@ const routes: Routes = [
     title: 'userManagement.home.title',
   },
   {
+    path: 'billing-register',
+    loadChildren: () => import('./billing/billing.route'),
+    title: 'Registrar Factura',
+  },
+  {
     path: 'docs',
     loadComponent: () => import('./docs/docs.component'),
     title: 'global.menu.admin.apidocs',
